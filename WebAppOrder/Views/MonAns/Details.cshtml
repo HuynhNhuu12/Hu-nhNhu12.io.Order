@@ -1,0 +1,59 @@
+﻿@model WebAppOrder.Models.MonAn
+@using WebAppOrder.Models;
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Chi tiết món ăn</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt style="text-align: left;">
+            Tên món ăn
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenMonAn)
+        </dd>
+
+        <dt style="text-align: left;">
+            Giá tiền
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonGia)
+        </dd>
+
+        <dt style="text-align: left;">
+            Thuộc loại
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LoaiSP.TenLoaiSP)
+        </dd>
+
+        <dt style="text-align: left;">
+            Hình ảnh
+        </dt>
+
+        <dd>
+            @*@Html.DisplayFor(model => model.Anh)*@
+            @Html.Image("../../" + Model.Anh, Model.Anh, "100")
+        </dd>
+        <dd>
+            <br />
+            <a class="btn btn-success btn-sm" href="@Url.Action("AddToCart", "GioHang", new {MaMonAn = Model.MaMonAn })">
+                <span class="glyphicon glyphicon-shopping-cart"></span> Thêm giỏ hàng
+            </a>
+            <a class="btn btn-success btn-sm" href="@Url.Action("Index", "Home", new {MaMonAn = Model.MaMonAn})">
+                Quay lại
+            </a>
+        </dd>
+    </dl>
+</div>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaMonAn }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>*@
+

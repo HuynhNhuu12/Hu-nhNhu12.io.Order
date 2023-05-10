@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NK - Order</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("NK - Order", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            Menu
+                            <span class="caret"></span>
+                        </a>
+                        @{ Html.RenderAction("Index", "Menu");}
+                    </li>
+                    @*<li>@Html.ActionLink("Món ăn", "Index", "MonAns")</li>
+        <li>@Html.ActionLink("Khách hàng", "Index", "KhachHangs")</li>
+        <li>@Html.ActionLink("Hóa đơn", "Index", "HoaDons")</li>*@
+                    <li>@Html.ActionLink("Món ăn", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Liên hệ", "Contact", "Home")</li>
+                    @if (Request.IsAuthenticated && User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("DS Món ăn", "Index", "MonAns")</li>
+                        <li>@Html.ActionLink("Khách hàng", "Index", "KhachHangs")</li>
+                        <li>@Html.ActionLink("Hóa đơn", "Index", "HoaDons")</li>
+                        <li>@Html.ActionLink("Quản trị", "Index", "Admin")</li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer style="background-color: black;">
+            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+            <div class="coll"style="background-color: black">
+                <div class="col-sm-4">
+                    <img src="~/Image/Screenshot (246).png" alt="anhfooter" style="width:100%"/>
+                </div>
+                <div class="col-sm-4" style="padding:100px">
+                    <b>Nhà Hàng Nk - Order </b> <br />
+                    <b>Công ty cổ phần NK Cloud</b><br />
+                    <b>Địa chỉ: Gò Vấp, TPHCM</b>
+                </div>
+                <div class="col-sm-4" style="padding:100px">
+                    <b>Chính sách</b>
+                    <p>Chính sách thanh toán</p>
+                    <p>Chính sách giao hàng</p>
+                    <p>Chính sách đổi trả</p>
+                    <p>Chính sách bảo mật </p>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

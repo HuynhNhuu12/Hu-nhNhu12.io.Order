@@ -1,0 +1,96 @@
+﻿@model PagedList.IPagedList<WebAppOrder.Models.MonAn>
+@using WebAppOrder.Models;
+@using PagedList.Mvc;
+<link rel="stylesheet" href="~/Content/PagedList.css" />
+@{
+    ViewBag.Title = "Danh mục món ăn";
+}
+
+<h2>Danh mục các món ăn</h2>
+
+<p>
+    @Html.ActionLink("Thêm món ăn", "Create")
+</p>
+<div class="carousel">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Mã món ăn</th>
+                <th scope="col">
+                    @Html.ActionLink("Tên món ăn", "Index", new { sortOrder = ViewBag.SortByName })
+                </th>
+                <th scope="col">
+                    @Html.ActionLink("Đơn giá", "Index", new { sortOrder = ViewBag.SortByPrice })
+                </th>
+                <th scope="col">
+                    Số lượng
+                </th>
+                <th scope="col">
+                    Thuộc loại
+                </th>
+                <th scope="col">
+                    Nhà cung cấp
+                </th>
+                <th scope="col">
+                    Hình ảnh
+                </th>
+                <th scope="col">
+                    Ngày tạo
+                </th>
+                <th scope="col">
+                    Trạng thái
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MaMonAn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenMonAn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DonGia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.SoLuong)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LoaiSP.TenLoaiSP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NhaCungCap.TenNCC)
+                    </td>
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.Anh)*@
+                        @Html.Image("../" + item.Anh, "", "50")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NgayTao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThai)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.MaMonAn }) |
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.MaMonAn })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div>
+    Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+     new
+     {
+         page,
+         sortOrder = ViewBag.CurrentSort
+     }))
+</div>
+

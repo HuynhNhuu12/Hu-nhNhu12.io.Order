@@ -1,0 +1,41 @@
+﻿@model PagedList.IPagedList<WebAppOrder.Models.MonAn>
+@using WebAppOrder.Models
+@using System.Linq
+@using PagedList.Mvc
+@using System.IO;
+<link rel="stylesheet" href="~/Content/PagedList.css" />
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@using (Html.BeginForm())
+{
+    <div class="form-group form-inline" style="text-align: center; margin-top: 10px;">
+        Tìm món ăn: @Html.TextBox("SearchString", "", new { @class = "form-control" })
+        <input type="submit" class="btn btn-default" value="Search" />
+    </div>
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-3" style="background-color:lavender; margin-top:5px; text-align:center;">
+            <h3> @Html.DisplayFor(modelItem => item.TenMonAn)</h3>
+            @Html.Image("../" + item.Anh, "alt", "100") <br />
+            @Html.DisplayFor(modelitem => item.DonGia) <br />
+            <a class="btn btn-info btn-sm" href="@Url.Action("Details", "MonAns", new { id = item.MaMonAn })">
+                Xem chi tiết
+            </a>
+        </div>
+    }
+</div>
+<div style="padding-left: 500px;" >
+    Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new
+        {
+        page,
+        currentFilter = ViewBag.CurrentFilter
+    }))
+</div>
